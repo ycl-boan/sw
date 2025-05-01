@@ -11,53 +11,52 @@ void menu() {
     cout << "구매하실 DVD 번호를 입력하세요 (종료는 0): ";
 }
 
-int total (int* totalprice, int prices[], int index, int quantity) {
+int total(int* totalprice, int prices[], int index, int quantity) {
     int current = prices[index] * quantity;
     *totalprice += current;
     return current;
-
-    cout << "가격은 " << current << "원입니다." << endl;
-
 }
 
-int main()
-{
-
-    string dvd[5] = { "액션 DVD","코미디 DVD", "드라마 DVD","SF DVD","애니메이션 DVD" };
-    int prices[] = { 12000,15000,11000,17000,13000 };
+int main() {
+    string dvd[5] = { "액션 DVD", "코미디 DVD", "드라마 DVD", "SF DVD", "애니메이션 DVD" };
+    int prices[] = { 12000, 15000, 11000, 16000, 13000 };
     int choice;
     char answer;
     int quantity;
-    int totalprice;
+    int totalprice = 0;
 
     while (true) {
         menu();
         cin >> choice;
+        cout << endl;
 
         if (choice == 0) {
+            cout << "총 누적 가격은 " << totalprice << "원입니다." << endl;
             cout << "프로그램을 종료합니다." << endl;
             break;
         }
 
         if (choice < 1 || choice > 5) {
-            cout << "올바른 번호를 입력하세요." << endl;
+            cout << "올바른 번호를 입력하세요." << endl << endl;
             continue;
         }
 
-        cout << dvd[choice - 1] << "를 구매하시겠습니까? (Y/N):" << endl;
+        cout << dvd[choice - 1] << "를 구매하시겠습니까? (Y/N): ";
         cin >> answer;
+        cout << endl;
 
-        if (answer == 'N') {
-            cout << "메인 메뉴로 돌아갑니다." << endl;
+        if (answer == 'N' || answer == 'n') {
+            cout << "메인 메뉴로 돌아갑니다." << endl << endl;
             continue;
         }
 
-        cout << "구매하실 DVD 개수를 입력해주세요 :" << endl;
+        cout << "구매하실 DVD 개수를 입력해주세요: ";
         cin >> quantity;
+        cout << endl;
 
-        cout << dvd[choice - 1] << quantity << "개를 구매하셨습니다. " << endl;
-        cout << "가격은 " << total(&totalprice, prices, choice - 1, quantity) << "원 입니다.";
-       
+        int current_price = total(&totalprice, prices, choice - 1, quantity);
+        cout << dvd[choice - 1] << " " << quantity << "개를 구매하셨습니다." << endl;
+        cout << "가격은 " << current_price << "원입니다." << endl << endl;
     }
 
     return 0;
