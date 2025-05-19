@@ -1,0 +1,115 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Information {
+public:
+    string title;
+    string author;
+
+    Information(string t, string a) : title(t), author(a) {}
+};
+
+bool isDuplicate(vector<Information>& books, string title, string author) {
+    for (int i = 0; i < books.size(); i++) {
+        if (books[i].title == title && books[i].author == author) {
+            return true;
+        }
+    }
+    return false;
+}
+
+Information* findBook(vector<Information>& books, string title, string author) {
+    for (int i = 0; i < books.size(); i++) {
+        if (books[i].title == title && books[i].author == author) {
+            return &books[i];
+        }
+    }
+    return nullptr;
+}
+
+int main() {
+    vector<Information> books;
+    int menu;
+
+    while (true) {
+        cout << "***** 도서 정보 관리 프로그램 *****\n";
+        cout << "1. 도서 추가\n";
+        cout << "2. 도서 검색\n";
+        cout << "3. 도서 정보 수정\n";
+        cout << "4. 프로그램 종료\n\n";
+        cout << "번호를 입력하세요: ";
+        cin >> menu;
+
+        cin.ignore();
+
+        if (menu == 1) {
+            cout << "\n***** 도서 추가를 진행합니다 *****\n";
+            string title, author;
+            cout << "도서 제목을 입력하세요: ";
+            getline(cin, title);
+            cout << "도서 저자를 입력하세요: ";
+            getline(cin, author);
+
+            if (isDuplicate(books, title, author)) {
+                cout << "\n이미 등록된 도서입니다.\n\n";
+            }
+            else {
+                books.push_back(Information(title, author));
+                cout << "\n도서가 성공적으로 추가되었습니다.\n\n";
+            }
+        }
+
+        else if (menu == 2) {
+            cout << "\n***** 도서 검색을 진행합니다 *****\n";
+            string title, author;
+            cout << "도서 제목을 입력하세요: ";
+            getline(cin, title);
+            cout << "도서 저자를 입력하세요: ";
+            getline(cin, author);
+
+            Information* book = findBook(books, title, author);
+            if (book) {
+                cout << "\n도서를 찾았습니다:\n";
+                cout << "제목: " << book->title << "\n";
+                cout << "저자: " << book->author << "\n\n";
+            }
+            else {
+                cout << "\n일치하는 도서를 찾을 수 없습니다.\n\n";
+            }
+        }
+
+        else if (menu == 3) {
+            cout << "\n***** 도서 정보를 수정합니다 *****\n";
+            string title, author;
+            cout << "수정할 도서 제목을 입력하세요: ";
+            getline(cin, title);
+            cout << "수정할 도서 저자를 입력하세요: ";
+            getline(cin, author);
+
+            Information* book = findBook(books, title, author);
+            if (book) {
+                cout << "새로운 도서 제목을 입력하세요: ";
+                getline(cin, book->title);
+                cout << "새로운 도서 저자를 입력하세요: ";
+                getline(cin, book->author);
+                cout << "\n도서 정보가 성공적으로 수정되었습니다.\n\n";
+            }
+            else {
+                cout << "\n일치하는 도서를 찾을 수 없습니다.\n\n";
+            }
+        }
+
+        else if (menu == 4) {
+            cout << "\n프로그램을 종료합니다.\n";
+            break;
+        }
+
+        else {
+            cout << "\n정확한 번호를 입력하세요.\n\n";
+        }
+    }
+
+    return 0;
+}
