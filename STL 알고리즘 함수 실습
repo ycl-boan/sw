@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <algorithm> 
+
+using namespace std;
+
+
+template <typename T>
+void printVector(vector<T>& v) {
+    for (typename vector<T>::iterator it = v.begin(); it != v.end(); ++it)
+        cout << *it << " ";
+    cout << endl;
+}
+
+int main() {
+
+    vector<int> numbers;
+    numbers.push_back(4);
+    numbers.push_back(7);
+    numbers.push_back(1);
+    numbers.push_back(8);
+    numbers.push_back(3);
+    numbers.push_back(9);
+
+    cout << "기존 벡터 숫자들: ";
+    printVector(numbers);
+
+    sort(numbers.begin(), numbers.end());
+    cout << "정렬된 벡터 숫자들: ";
+    printVector(numbers);
+
+    int target = 7;
+    vector<int>::iterator it = find(numbers.begin(), numbers.end(), target);
+    if (it != numbers.end())
+        cout << target << " 의 index: " << distance(numbers.begin(), it) << endl;
+    else
+        cout << target << " not found in the vector." << endl;
+
+    vector<string> fruits;
+    fruits.push_back("banana");
+    fruits.push_back("apple");
+    fruits.push_back("grape");
+    fruits.push_back("orange");
+
+    cout << "기존 벡터 과일들: ";
+    printVector(fruits);
+
+    sort(fruits.begin(), fruits.end());
+    cout << "정렬된 벡터 과일들: ";
+    printVector(fruits);
+
+    string target2 = "apple";
+    vector<string>::iterator it2 = find(fruits.begin(), fruits.end(), target2);
+    if (it2 != fruits.end())
+        cout << target2 << " 의 index: " << distance(fruits.begin(), it2) << endl;
+    else
+        cout << target2 << " not found in the vector." << endl;
+
+    return 0;
+}
